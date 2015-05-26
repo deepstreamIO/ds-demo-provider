@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script 
+            type="text/javascript" 
+            src="bower_components/deepstream.io-client-js/dist/deepstream.js">
+        </script>
+    </head>
+    <body>
+        <input type="text" />
+        <script type="text/javascript">
+            ds = deepstream( 'localhost:6020' ).login();
+     
+            gbpusd = ds.record.getRecord( 'FX/GBPUSD' );
+
+            gbpusd.subscribe( 'bid', function( bid ){
+                console.log( 'BID is now ' + bid );
+            });
+
+            gbpusd.subscribe( function( data ){
+                console.log( 'Record data is ' + data );
+            });
+
+            ds.rpc.make( 'addTwo', { numA: 3, numB: 6 }, function( error, response ){
+                console.log( arguments );
+            });
+        </script>
+    </body>
+</html>
