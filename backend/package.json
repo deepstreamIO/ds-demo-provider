@@ -1,0 +1,26 @@
+{
+  "name": "ds-demo-fxprovider",
+  "version": "1.0.0",
+  "description": "Example fx provider for deepstream",
+  "main": "start-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoxton-one/ds-demo-fxprovider.git"
+  },
+  "keywords": [
+    "deepstream.io"
+  ],
+  "author": "Yasser Fadl",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hoxton-one/ds-demo-fxprovider/issues"
+  },
+  "homepage": "https://github.com/hoxton-one/ds-demo-fxprovider#readme",
+  "dependencies": {
+    "deepstream.io": "^0.2.14",
+    "deepstream.io-client-js": "^0.2.15"
+  }
+}

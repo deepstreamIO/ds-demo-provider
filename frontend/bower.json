@@ -1,0 +1,25 @@
+{
+  "name": "frontend",
+  "version": "0.0.0",
+  "homepage": "https://github.com/hoxton-one/ds-demo-fxprovider",
+  "authors": [
+    "Yasser <yasser.fadl@gmail.com>"
+  ],
+  "description": "Simple frontend for deepstream FX price requests",
+  "main": "index.html",
+  "keywords": [
+    "deepstream"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "deepstream.io-client-js": "~0.2.16",
+    "jquery": "~2.1.4"
+  }
+}

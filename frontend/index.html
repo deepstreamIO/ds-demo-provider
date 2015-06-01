@@ -1,29 +1,88 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script 
-            type="text/javascript" 
-            src="bower_components/deepstream.io-client-js/dist/deepstream.js">
-        </script>
-    </head>
+      <style>
+
+        body {
+          font-family: arial;
+        }
+
+        .streaming-prices {
+          padding: 10px;
+        }
+
+        .side {
+          font-weight: bold;
+        }
+
+        .price {
+          margin: 10px 0;
+        }
+      </style>
+      <script
+          type="text/javascript"
+          src="bower_components/deepstream.io-client-js/dist/deepstream.js">
+      </script>
+      <script
+          type="text/javascript"
+          src="bower_components/jquery/dist/jquery.min.js">
+      </script>
+  </head>
     <body>
-        <input type="text" />
+        <div class="streaming-prices">
+          <select class='currency-pair' type="text">
+            <option value="GBPEUR">GBPEUR</option>
+            <option value="GBPUSD">GBPUSD</option>
+            <option value="EURUSD">EURUSD</option>
+          <select>
+
+          <div class="price">
+            <span class='side'>Bid:</span>
+            <span class="bid"></span>
+          </div>
+          <div class="price">
+            <span class='side'>Ask:</span>
+            <span class="ask"></span>
+          </div>
+        </div>
+
         <script type="text/javascript">
-            ds = deepstream( 'localhost:6020' ).login();
-     
-            gbpusd = ds.record.getRecord( 'FX/GBPUSD' );
+          /**
+          * Login to deepstream as Frank
+          */
+          var ds = deepstream( 'localhost:6020' ).login({ username: 'Frank'});
 
-            gbpusd.subscribe( 'bid', function( bid ){
-                console.log( 'BID is now ' + bid );
-            });
+          /**
+          * Request an anonymous record, as we will be changing the currency pair
+          * dynamically
+          */
+          var currencyPairRecord = ds.record.getAnonymousRecord();
 
-            gbpusd.subscribe( function( data ){
-                console.log( 'Record data is ' + data );
-            });
+          var bid = $('.streaming-prices .bid');
+          var ask = $('.streaming-prices .ask');
+          var currencyPair = $('.streaming-prices .currency-pair');
 
-            ds.rpc.make( 'addTwo', { numA: 3, numB: 6 }, function( error, response ){
-                console.log( arguments );
-            });
+          /**
+          * Update bid price whenever it changes
+          */
+          currencyPairRecord.subscribe( 'bid', function( bidPrice ){
+            bid.text( bidPrice );
+          });
+
+          /**
+          * Update ask price whenever it changes
+          */
+          currencyPairRecord.subscribe( 'ask', function( askPrice ){
+            ask.text( askPrice );
+          });
+
+          /**
+          * Set the new record name whenever the currency pair changes
+          */
+          currencyPair.change(function updateCurrencyPair() {
+            currencyPairRecord.setName( 'FX/' + $( this ).val() );
+          });
+          currencyPair.trigger( "change" );
         </script>
     </body>
 </html>
