@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/hoxton-one/ds-demo-fxprovider#readme",
   "dependencies": {
-    "deepstream.io": "^0.2.14",
-    "deepstream.io-client-js": "^0.2.15"
+    "deepstream.io": "^0.7.0",
+    "deepstream.io-client-js": "^0.3.6"
   }
 }
