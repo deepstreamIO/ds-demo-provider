@@ -19,7 +19,7 @@
     "tests"
   ],
   "dependencies": {
-    "deepstream.io-client-js": "~0.2.16",
+    "deepstream.io-client-js": "latest",
     "jquery": "~2.1.4"
   }
 }
