@@ -5,7 +5,7 @@ var ds = deepstreamClient( 'localhost:6022' );
 var priceGenerator = new PriceGenerator();
 
 priceGenerator.on( 'ready', function() {
-	ds.login( { username: 'fx-provider' }, listenForSubscriptions );
+	ds.login( { username: 'fx-provider', password: 'complicatedProviderPassword' }, listenForSubscriptions );
 } );
 
 function listenForSubscriptions() {

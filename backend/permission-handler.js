@@ -16,8 +16,8 @@ PermissionHandler.prototype.isValidUser = function( connectionData, authData, ca
 	/**
 	 * If username matches that of a provider authenticate against provided password
 	 */
-	if( this.isProvider( authData.username &&
-			authData.password !== 'complicatedProviderPassword' ) ) {
+	if( this.isProvider( authData.username ) &&
+			authData.password !== 'complicatedProviderPassword' ) {
 		callback( 'Invalid credentials.' );
 	}
 	/**
