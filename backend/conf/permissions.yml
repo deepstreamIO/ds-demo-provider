@@ -1,0 +1,18 @@
+record:
+  "*":
+    create: true
+    write: true
+    read: true
+    delete: true
+    listen: true
+  "FX/.*":
+    write: "user.id === 'fx-provider' || action !== 'U'"
+event:
+  "*":
+    publish: true
+    subscribe: true
+    listen: true
+rpc:
+  "*":
+    provide: true
+    request: true

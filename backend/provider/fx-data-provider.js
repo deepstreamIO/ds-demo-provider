@@ -1,8 +1,12 @@
 var deepstreamClient = require( 'deepstream.io-client-js' );
 var	PriceGenerator = require( './fx-price-generator' );
 
-var ds = deepstreamClient( 'localhost:6022' );
+var ds = deepstreamClient( 'localhost:6021' );
 var priceGenerator = new PriceGenerator();
+
+ds.on('error', function() {
+console.log(arguments);
+});
 
 priceGenerator.on( 'ready', function() {
 	ds.login( { username: 'fx-provider', password: 'complicatedProviderPassword' }, listenForSubscriptions );
@@ -20,7 +24,7 @@ function onSubscription( recordName, isSubscribed ) {
   /**
    * Get the record from your cache
    */
-	var record = ds.record.getRecord( recordName );
+   console.log( 'found match', recordName, isSubscribed )	
 
   /**
    * Extract the currency pair from the record name
@@ -32,7 +36,7 @@ function onSubscription( recordName, isSubscribed ) {
    * currency pair so stop generating prices
    */
 	if( isSubscribed === false ) {
-		record.discard();
+		//record.discard();
 		priceGenerator.discardPrices( currencyPair );
 	}
   /**
@@ -41,8 +45,11 @@ function onSubscription( recordName, isSubscribed ) {
    */
   else {
 		priceGenerator.getPrices( currencyPair, function( bid, ask ) {
-			record.set( 'bid', bid );
-			record.set( 'ask', ask );
+      var record = ds.record.getRecord( recordName );
+      record.whenReady( function() {
+        record.set( 'bid', bid );
+        record.set( 'ask', ask );
+      } );
 		} );
 	}
 }
